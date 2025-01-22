@@ -27,5 +27,5 @@ steps:
   - --project=$PROJECT_ID
 
 substitutions:
-  _DATASET: 'dev_dataset'  # Replace with 'staging_dataset' or 'prod_dataset' for other environments
-  _PROJECT_ID: 'my-gcp-project'
+  _DATASET: 'devops_dev'  # Replace with 'staging_dataset' or 'prod_dataset' for other environments
+  _PROJECT_ID: 'b2c-de'
