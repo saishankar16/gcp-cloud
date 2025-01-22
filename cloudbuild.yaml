@@ -1,0 +1,31 @@
+steps:
+# Step 1: Deploy tables to BigQuery
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - bigquery
+  - query
+  - --use_legacy_sql=false
+  - --file=sql/create_tables/my_table.sql
+  - --project=$PROJECT_ID
+
+# Step 2: Deploy views to BigQuery
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - bigquery
+  - query
+  - --use_legacy_sql=false
+  - --file=sql/update_views/my_view.sql
+  - --project=$PROJECT_ID
+
+# Step 3: Validate deployments (optional)
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - bigquery
+  - query
+  - --use_legacy_sql=false
+  - --query="SELECT COUNT(*) FROM \`my_project.${_DATASET}.my_table\`"
+  - --project=$PROJECT_ID
+
+substitutions:
+  _DATASET: 'dev_dataset'  # Replace with 'staging_dataset' or 'prod_dataset' for other environments
+  _PROJECT_ID: 'my-gcp-project'
